@@ -4,6 +4,11 @@
 如要了解功能实现,请运行app程序查看控制台日志和源代码!
 * 源代码 : <a href="https://github.com/AcmenXD/Glide">AcmenXD/Glide</a>
 * apk下载路径 : <a href="https://github.com/AcmenXD/Resource/blob/master/apks/Glide.apk">Glide.apk</a>
+
+![jpg](https://github.com/AcmenXD/Glide/blob/master/pic/1.jpg)
+![jpg](https://github.com/AcmenXD/Glide/blob/master/pic/2.jpg)
+![jpg](https://github.com/AcmenXD/Glide/blob/master/pic/3.jpg)
+
 ### 依赖
 ---
 - AndroidStudio
