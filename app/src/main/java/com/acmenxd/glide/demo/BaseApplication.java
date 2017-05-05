@@ -41,7 +41,7 @@ public final class BaseApplication extends Application {
         /**
          * 配置Glide
          */
-        GlideManager.setCacheSize(50 * 1024 * 1024);
+        GlideManager.setCacheSize(50);
         GlideManager.setCachePath(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/", "MainCache");
         GlideManager.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
         // 初始化完毕

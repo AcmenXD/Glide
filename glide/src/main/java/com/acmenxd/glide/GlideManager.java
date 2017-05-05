@@ -44,11 +44,11 @@ public class GlideManager implements GlideModule {
     private static DecodeFormat DECODEFORMAT = DecodeFormat.PREFER_RGB_565;
 
     /**
-     * 设置缓存内存大小(建议不要手动设置)
+     * 设置缓存内存大小(建议不要手动设置)(MB)
      */
     public static void setCacheSizeMemory(long memory, long memory_pool) {
-        MAX_MEMORY_CACHE_SIZE = (int) memory;
-        MAX_MEMORY_CACHE_SIZE_POOL = (int) memory_pool;
+        MAX_MEMORY_CACHE_SIZE = (int) memory * 1024 * 1024;
+        MAX_MEMORY_CACHE_SIZE_POOL = (int) memory_pool * 1024 * 1024;
     }
 
     /**
@@ -57,7 +57,7 @@ public class GlideManager implements GlideModule {
      * @param mainCacheSize 大图片磁盘大小(MB) 默认为50MB
      */
     public static void setCacheSize(long mainCacheSize) {
-        MAX_DISK_CACHE_SIZE = (int) mainCacheSize;
+        MAX_DISK_CACHE_SIZE = (int) mainCacheSize * 1024 * 1024;
     }
 
     /**
