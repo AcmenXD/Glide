@@ -21,7 +21,7 @@
 	}
 ```
 ```
-	 compile 'com.github.AcmenXD:Glide:1.1'
+	 compile 'com.github.AcmenXD:Glide:1.2'
 ```
 - AndroidManifest.xml
 ```
@@ -45,6 +45,7 @@
 ```
 ### 功能
 ---
+####v1.2 最新版本
 ####v1.1 修复bug:
 - 修复磁盘大小 单位错误问题
 
