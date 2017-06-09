@@ -29,6 +29,6 @@ dependencies {
      * 系统库
      */
     compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.github.AcmenXD:Glide:1.2'
-//    compile project(':glide')
+//    compile 'com.github.AcmenXD:Glide:1.5'
+    compile project(':glide')
 }

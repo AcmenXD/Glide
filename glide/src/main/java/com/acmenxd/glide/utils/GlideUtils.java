@@ -1,5 +1,7 @@
 package com.acmenxd.glide.utils;
 
+import android.support.annotation.NonNull;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -14,14 +16,14 @@ import java.io.IOException;
  * @date 2017/5/4 15:11
  * @detail Glide工具类
  */
-public class GlideUtils {
+public final class GlideUtils {
 
     /**
      * 创建文件 -> 父目录不存在会自动创建 & 如文件存在的话不会删除重新创建
      *
      * @return 创建成功返回true
      */
-    public static boolean createFile(File targetFile) throws IOException {
+    public static boolean createFile(@NonNull File targetFile) throws IOException {
         return createFile(targetFile, false);
     }
 
@@ -30,7 +32,7 @@ public class GlideUtils {
      *
      * @return 创建成功返回true
      */
-    public static boolean createFileWithDelete(File targetFile) throws IOException {
+    public static boolean createFileWithDelete(@NonNull File targetFile) throws IOException {
         return createFile(targetFile, true);
     }
 
@@ -41,7 +43,7 @@ public class GlideUtils {
      * @param isDelete   如果文件存在,是否删除重新创建
      * @return
      */
-    private static boolean createFile(File targetFile, boolean isDelete) throws IOException {
+    private static boolean createFile(@NonNull File targetFile, boolean isDelete) throws IOException {
         File parentFile = targetFile.getParentFile();
         if (!parentFile.exists()) {
             parentFile.mkdirs();
@@ -80,7 +82,7 @@ public class GlideUtils {
      * @return
      * @throws IOException
      */
-    public static boolean copyFile(File srcFile, File targetFile, boolean isDeleteMoveFile) throws IOException {
+    public static boolean copyFile(@NonNull File srcFile, @NonNull File targetFile, boolean isDeleteMoveFile) throws IOException {
         return moveFile(srcFile, targetFile, false, isDeleteMoveFile, true);
     }
 
@@ -94,7 +96,7 @@ public class GlideUtils {
      * @param preserveFileDate 是否保存文件日期
      * @throws IOException
      */
-    private static boolean moveFile(File srcFile, File targetFile, boolean isDeleteSrcFile, boolean isDeleteMoveFile, boolean preserveFileDate) throws IOException {
+    private static boolean moveFile(@NonNull File srcFile, @NonNull File targetFile, boolean isDeleteSrcFile, boolean isDeleteMoveFile, boolean preserveFileDate) throws IOException {
         if (srcFile == null) {
             throw new NullPointerException("Source must not be null");
         }
@@ -135,7 +137,7 @@ public class GlideUtils {
      * @param outFile
      * @param preserveFileDate 是否保存文件日期
      */
-    private static boolean doCopyFile(File inFile, File outFile, boolean preserveFileDate) throws IOException {
+    private static boolean doCopyFile(@NonNull File inFile, @NonNull File outFile, boolean preserveFileDate) throws IOException {
         boolean result = false;
         BufferedInputStream bIn = null;
         BufferedOutputStream bOut = null;

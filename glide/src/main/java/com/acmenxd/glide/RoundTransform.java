@@ -7,6 +7,8 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -18,15 +20,15 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  * @date 2017/5/4 13:47
  * @detail Glide处理圆角Transform
  */
-public class RoundTransform extends BitmapTransformation {
+public final class RoundTransform extends BitmapTransformation {
 
     private static float radius = 0f;
 
-    public RoundTransform(Context context) {
+    public RoundTransform(@NonNull Context context) {
         this(context, 4);
     }
 
-    public RoundTransform(Context context, int dp) {
+    public RoundTransform(@NonNull Context context,@IntRange(from = 0) int dp) {
         super(context);
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }

@@ -1,5 +1,7 @@
 package com.acmenxd.glide;
 
+import android.support.annotation.NonNull;
+
 import java.io.File;
 
 /**
@@ -11,7 +13,7 @@ import java.io.File;
  */
 public interface SaveCallback {
 
-    void succeed(final File file);
+    void succeed(@NonNull final File file);
 
-    void failed(final Exception pE);
+    void failed(@NonNull final Exception pE);
 }

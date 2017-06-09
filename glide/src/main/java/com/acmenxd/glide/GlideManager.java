@@ -3,6 +3,9 @@ package com.acmenxd.glide;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
+import android.support.annotation.WorkerThread;
 
 import com.acmenxd.glide.utils.GlideUtils;
 import com.bumptech.glide.Glide;
@@ -27,7 +30,7 @@ import java.util.concurrent.ExecutionException;
  * @date 2017/5/4 11:31
  * @detail Glide管理类
  */
-public class GlideManager implements GlideModule {
+public final class GlideManager implements GlideModule {
     // 分配的可用内存
     private static int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
     private static int MAX_HEAP_SIZE_FINAL = MAX_HEAP_SIZE / 4;
@@ -46,7 +49,7 @@ public class GlideManager implements GlideModule {
     /**
      * 设置缓存内存大小(建议不要手动设置)(MB)
      */
-    public static void setCacheSizeMemory(long memory, long memory_pool) {
+    public static void setCacheSizeMemory(@IntRange(from = 0) long memory, @IntRange(from = 0) long memory_pool) {
         MAX_MEMORY_CACHE_SIZE = (int) memory * 1024 * 1024;
         MAX_MEMORY_CACHE_SIZE_POOL = (int) memory_pool * 1024 * 1024;
     }
@@ -56,7 +59,7 @@ public class GlideManager implements GlideModule {
      *
      * @param mainCacheSize 大图片磁盘大小(MB) 默认为50MB
      */
-    public static void setCacheSize(long mainCacheSize) {
+    public static void setCacheSize(@IntRange(from = 0) long mainCacheSize) {
         MAX_DISK_CACHE_SIZE = (int) mainCacheSize * 1024 * 1024;
     }
 
@@ -67,7 +70,7 @@ public class GlideManager implements GlideModule {
      * @param cachePath    路径:默认为SD卡根目录Glide下 (此路径非直接存储图片的路径,还需要以下目录设置)
      * @param mainCacheDir 大图片存放目录:默认为MainCache目录
      */
-    public static void setCachePath(String cachePath, String mainCacheDir) {
+    public static void setCachePath(@NonNull String cachePath, @NonNull String mainCacheDir) {
         IMAGE_CACHE_PATH = new File(cachePath);
         MAIN_CACHE_DIR = mainCacheDir;
     }
@@ -77,7 +80,7 @@ public class GlideManager implements GlideModule {
      *
      * @param decodeFormat 默认:DecodeFormat.PREFER_RGB_565
      */
-    public static void setDecodeFormat(DecodeFormat decodeFormat) {
+    public static void setDecodeFormat(@NonNull DecodeFormat decodeFormat) {
         DECODEFORMAT = decodeFormat;
     }
 
@@ -108,27 +111,27 @@ public class GlideManager implements GlideModule {
      * 保存已加载的图片
      * * 如callback不为空,则回调函数的是在子线程中执行的
      */
-    public static void saveImage(Context pContext, String string, File outFile, SaveCallback callback) {
-        saveImage(Glide.with(pContext).load(string).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL), outFile, callback);
+    public static void saveImage(@NonNull Context pContext, @NonNull String url, @NonNull File outFile, SaveCallback callback) {
+        saveImage(Glide.with(pContext).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL), outFile, callback);
     }
 
-    public static void saveImage(Context pContext, Uri uri, File outFile, SaveCallback callback) {
+    public static void saveImage(@NonNull Context pContext, @NonNull Uri uri, @NonNull File outFile, SaveCallback callback) {
         saveImage(Glide.with(pContext).load(uri).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL), outFile, callback);
     }
 
-    public static void saveImage(Context pContext, File file, File outFile, SaveCallback callback) {
+    public static void saveImage(@NonNull Context pContext, @NonNull File file, @NonNull File outFile, SaveCallback callback) {
         saveImage(Glide.with(pContext).load(file).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL), outFile, callback);
     }
 
-    public static void saveImage(Context pContext, Integer resourceId, File outFile, SaveCallback callback) {
+    public static void saveImage(@NonNull Context pContext, @NonNull Integer resourceId, @NonNull File outFile, SaveCallback callback) {
         saveImage(Glide.with(pContext).load(resourceId).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL), outFile, callback);
     }
 
-    public static void saveImage(Context pContext, byte[] model, File outFile, SaveCallback callback) {
+    public static void saveImage(@NonNull Context pContext, @NonNull byte[] model, @NonNull File outFile, SaveCallback callback) {
         saveImage(Glide.with(pContext).load(model).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL), outFile, callback);
     }
 
-    public static void saveImage(final FutureTarget<File> target, final File outFile, final SaveCallback callback) {
+    public static void saveImage(@NonNull final FutureTarget<File> target, @NonNull final File outFile, final SaveCallback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -160,7 +163,8 @@ public class GlideManager implements GlideModule {
     /**
      * 清理磁盘缓存 需要在子线程中执行
      */
-    public static void clearDiskCache(final Context pContext) {
+    @WorkerThread
+    public static void clearDiskCache(@NonNull final Context pContext) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -172,7 +176,7 @@ public class GlideManager implements GlideModule {
     /**
      * 清理内存缓存  可以在UI主线程中进行
      */
-    public static void clearMemory(final Context pContext) {
+    public static void clearMemory(@NonNull final Context pContext) {
         new Thread(new Runnable() {
             @Override
             public void run() {
