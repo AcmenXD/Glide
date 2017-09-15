@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnClick3(View view) {
-        url = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1854928198,1677845423&fm=23&gp=0.jpg";
+        url = "http://ww2.sinaimg.cn/mw690/c2adb464tw1eb6k8q1yflg20dw07hqv5.gif";
         Glide.with(this)
                 .load(url)
                 .asGif()//显示gif动态图片

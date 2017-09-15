@@ -37,13 +37,15 @@ public final class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         startTime = System.currentTimeMillis();
         /**
          * 配置Glide
          */
-        GlideManager.setCacheSize(50);
-        GlideManager.setCachePath(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/", "MainCache");
-        GlideManager.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
+        GlideManager.DECODEFORMAT = DecodeFormat.PREFER_ARGB_8888;
+        GlideManager.IMAGE_CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/";
+        GlideManager.MAIN_CACHE_DIR = "MainCache";
+        GlideManager.MAX_DISK_CACHE_SIZE = 50;
         // 初始化完毕
         isInitFinish = true;
     }

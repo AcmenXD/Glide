@@ -21,7 +21,7 @@
 	}
 ```
 ```
-	 compile 'com.github.AcmenXD:Glide:1.5'
+	 compile 'com.github.AcmenXD:Glide:2.0'
 ```
 - AndroidManifest.xml
 ```
@@ -56,21 +56,19 @@
  *
  * @param mainCacheSize  大图片磁盘大小(MB) 默认为50MB
  */
-GlideManager.setCacheSize(50);
+GlideManager.MAX_DISK_CACHE_SIZE = 50;
 /**
  * 设置缓存图片的存放路径
  * Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/"
- *
- * @param cachePath     路径:默认为SD卡根目录Glide下 (此路径非直接存储图片的路径,还需要以下目录设置)
- * @param mainCacheDir  大图片存放目录:默认为MainCache目录
+ * 路径:默认为SD卡根目录Glide下 (此路径非直接存储图片的路径,还需要以下目录设置)
+ * 大图片存放目录:默认为MainCache目录
  */
-GlideManager.setCachePath(FileUtils.imgCacheDirPath, "MainCache");
+GlideManager.IMAGE_CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/";
+GlideManager.MAIN_CACHE_DIR = "MainCache";
 /**
- * 设置图片解码格式
- *
- * @param decodeFormat 默认:DecodeFormat.PREFER_RGB_565
+ * 设置图片解码格式 默认:DecodeFormat.PREFER_RGB_565
  */
-GlideManager.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
+GlideManager.DECODEFORMAT = DecodeFormat.PREFER_ARGB_8888;
 ```
 ### 使用 -> 以下代码 注释很详细、很重要很重要很重要!!!
 ---

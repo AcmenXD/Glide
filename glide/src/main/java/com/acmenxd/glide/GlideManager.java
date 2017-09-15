@@ -31,20 +31,23 @@ import java.util.concurrent.ExecutionException;
  * @detail Glide管理类
  */
 public final class GlideManager implements GlideModule {
+    /**
+     * 初始化配置
+     */
+    // 默认图片解码格式
+    public static DecodeFormat DECODEFORMAT = DecodeFormat.PREFER_RGB_565;
+    // 默认缓存路径
+    public static String IMAGE_CACHE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/";
+    // 默认缓存文件夹
+    public static String MAIN_CACHE_DIR = "MainCache";
+    // 默认磁盘缓存的最大值
+    public static int MAX_DISK_CACHE_SIZE = 50;
     // 分配的可用内存
     private static int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
     private static int MAX_HEAP_SIZE_FINAL = MAX_HEAP_SIZE / 4;
     // 默认内存缓存的最大值
     private static int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE_FINAL;
     private static int MAX_MEMORY_CACHE_SIZE_POOL = MAX_HEAP_SIZE_FINAL;
-    // 默认磁盘缓存的最大值
-    private static int MAX_DISK_CACHE_SIZE = 50 * 1024 * 1024;
-    // 默认缓存路径
-    private static File IMAGE_CACHE_PATH = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/");
-    // 默认缓存文件夹
-    private static String MAIN_CACHE_DIR = "MainCache";
-    // 默认图片解码格式
-    private static DecodeFormat DECODEFORMAT = DecodeFormat.PREFER_RGB_565;
 
     /**
      * 设置缓存内存大小(建议不要手动设置)(MB)
@@ -52,36 +55,6 @@ public final class GlideManager implements GlideModule {
     public static void setCacheSizeMemory(@IntRange(from = 0) long memory, @IntRange(from = 0) long memory_pool) {
         MAX_MEMORY_CACHE_SIZE = (int) memory * 1024 * 1024;
         MAX_MEMORY_CACHE_SIZE_POOL = (int) memory_pool * 1024 * 1024;
-    }
-
-    /**
-     * 设置缓存磁盘大小
-     *
-     * @param mainCacheSize 大图片磁盘大小(MB) 默认为50MB
-     */
-    public static void setCacheSize(@IntRange(from = 0) long mainCacheSize) {
-        MAX_DISK_CACHE_SIZE = (int) mainCacheSize * 1024 * 1024;
-    }
-
-    /**
-     * 设置缓存图片的存放路径
-     * Environment.getExternalStorageDirectory().getAbsolutePath() + "/Glide/"
-     *
-     * @param cachePath    路径:默认为SD卡根目录Glide下 (此路径非直接存储图片的路径,还需要以下目录设置)
-     * @param mainCacheDir 大图片存放目录:默认为MainCache目录
-     */
-    public static void setCachePath(@NonNull String cachePath, @NonNull String mainCacheDir) {
-        IMAGE_CACHE_PATH = new File(cachePath);
-        MAIN_CACHE_DIR = mainCacheDir;
-    }
-
-    /**
-     * 设置图片解码格式
-     *
-     * @param decodeFormat 默认:DecodeFormat.PREFER_RGB_565
-     */
-    public static void setDecodeFormat(@NonNull DecodeFormat decodeFormat) {
-        DECODEFORMAT = decodeFormat;
     }
 
     @Override
@@ -98,7 +71,7 @@ public final class GlideManager implements GlideModule {
         // 设置BitmapPool缓存内存大小
         builder.setBitmapPool(new LruBitmapPool(MAX_MEMORY_CACHE_SIZE_POOL));
         // 设置磁盘缓存大小
-        builder.setDiskCache(new DiskLruCacheFactory(IMAGE_CACHE_PATH.getAbsolutePath(), MAIN_CACHE_DIR, MAX_DISK_CACHE_SIZE));
+        builder.setDiskCache(new DiskLruCacheFactory(IMAGE_CACHE_PATH, MAIN_CACHE_DIR, MAX_DISK_CACHE_SIZE * 1024 * 1024));
         // 设置图片解码格式 ,默认格式RGB_565
         builder.setDecodeFormat(DECODEFORMAT);
     }
