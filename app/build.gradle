@@ -22,6 +22,6 @@ android {
 }
 
 dependencies {
-//    compile config.glide
-    compile project(':glide')
+    compile config.glide
+//    compile project(':glide')
 }
