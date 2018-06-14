@@ -21,5 +21,5 @@ android {
 }
 dependencies {
     compile config.system.appcompatV7
-    compile config.glide
+    compile config.glide_third
 }

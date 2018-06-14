@@ -22,6 +22,6 @@ android {
 }
 
 dependencies {
-//    compile 'com.github.AcmenXD:Glide:2.0'
+//    compile config.glide
     compile project(':glide')
 }

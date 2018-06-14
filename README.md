@@ -21,7 +21,7 @@
 	}
 ```
 ```
-	 compile 'com.github.AcmenXD:Glide:2.0'
+	 compile 'com.github.AcmenXD:Glide:3.0'
 ```
 - AndroidManifest.xml
 ```
