@@ -26,22 +26,19 @@
 - AndroidManifest.xml
 ```
     // 添加meta-data部分,Glide才能正确初始化
-    <application
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+    <application>
         <meta-data
-                android:name="com.acmenxd.glide.GlideManager"
-                android:value="GlideModule" />
+            android:name="com.acmenxd.glide.GlideManager"
+            android:value="GlideModule"/>
     </application>
 ```
 ### 混淆
 ---
 ```
-     -keep public class * implements com.bumptech.glide.module.GlideModule
-     -keep class com.bumptech.glide.** {
-         *;
-     }
+    -keep public class * implements com.bumptech.glide.module.GlideModule
+    -keep class com.bumptech.glide.** {
+        *;
+    }
 ```
 ### 功能
 ---

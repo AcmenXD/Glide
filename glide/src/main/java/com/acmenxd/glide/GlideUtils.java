@@ -1,4 +1,4 @@
-package com.acmenxd.glide.utils;
+package com.acmenxd.glide;
 
 import android.support.annotation.NonNull;
 
@@ -13,64 +13,18 @@ import java.io.IOException;
  * @author AcmenXD
  * @version v1.0
  * @github https://github.com/AcmenXD
- * @date 2017/5/4 15:11
+ * @date 2018/5/22 17:48
  * @detail Glide工具类
  */
-public final class GlideUtils {
-
+public class GlideUtils {
     /**
-     * 创建文件 -> 父目录不存在会自动创建 & 如文件存在的话不会删除重新创建
-     *
-     * @return 创建成功返回true
+     * 1KB字节数
      */
-    public static boolean createFile(@NonNull File targetFile) throws IOException {
-        return createFile(targetFile, false);
-    }
-
+    public static final int ONE_KB = 1024;
     /**
-     * 创建文件 -> 父目录不存在会自动创建 & 如文件存在的话会删除重新创建
-     *
-     * @return 创建成功返回true
+     * 1M字节数
      */
-    public static boolean createFileWithDelete(@NonNull File targetFile) throws IOException {
-        return createFile(targetFile, true);
-    }
-
-    /**
-     * 创建文件
-     *
-     * @param targetFile 路径
-     * @param isDelete   如果文件存在,是否删除重新创建
-     * @return
-     */
-    private static boolean createFile(@NonNull File targetFile, boolean isDelete) throws IOException {
-        File parentFile = targetFile.getParentFile();
-        if (!parentFile.exists()) {
-            parentFile.mkdirs();
-            if (!parentFile.exists()) {
-                throw new IOException("Source '" + parentFile.getAbsolutePath() + "' can't create");
-            }
-        }
-        if (isDelete) {
-            if (targetFile.exists()) {
-                targetFile.delete();
-            }
-        }
-        if (!targetFile.exists()) {
-            try {
-                targetFile.createNewFile();
-            } catch (IOException pE) {
-                throw new IOException("Source '" + targetFile.getAbsolutePath() + "' create fail");
-            }
-            if (targetFile.exists()) {
-                return true;
-            } else {
-                throw new IOException("Source '" + targetFile.getAbsolutePath() + "' can't create");
-            }
-        }
-        return false;
-    }
-
+    public static final int ONE_MB = 1024 * ONE_KB;
 
     /**
      * 拷贝一个文件 -> 不会删除源文件
@@ -131,6 +85,59 @@ public final class GlideUtils {
     }
 
     /**
+     * 创建文件 -> 父目录不存在会自动创建 & 如文件存在的话会删除重新创建
+     *
+     * @return 创建成功返回true
+     */
+    public static boolean createFileWithDelete(@NonNull File targetFile) throws IOException {
+        return createFile(targetFile, true);
+    }
+
+    /**
+     * 创建文件 -> 父目录不存在会自动创建 & 如文件存在的话不会删除重新创建
+     *
+     * @return 创建成功返回true
+     */
+    public static boolean createFile(@NonNull File targetFile) throws IOException {
+        return createFile(targetFile, false);
+    }
+
+    /**
+     * 创建文件
+     *
+     * @param targetFile 路径
+     * @param isDelete   如果文件存在,是否删除重新创建
+     * @return
+     */
+    private static boolean createFile(@NonNull File targetFile, boolean isDelete) throws IOException {
+        File parentFile = targetFile.getParentFile();
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+            if (!parentFile.exists()) {
+                throw new IOException("Source '" + parentFile.getAbsolutePath() + "' can't create");
+            }
+        }
+        if (isDelete) {
+            if (targetFile.exists()) {
+                targetFile.delete();
+            }
+        }
+        if (!targetFile.exists()) {
+            try {
+                targetFile.createNewFile();
+            } catch (IOException pE) {
+                throw new IOException("Source '" + targetFile.getAbsolutePath() + "' create fail");
+            }
+            if (targetFile.exists()) {
+                return true;
+            } else {
+                throw new IOException("Source '" + targetFile.getAbsolutePath() + "' can't create");
+            }
+        }
+        return false;
+    }
+
+    /**
      * 拷贝一个文件
      *
      * @param inFile
@@ -145,7 +152,7 @@ public final class GlideUtils {
             bIn = new BufferedInputStream(new FileInputStream(inFile));
             bOut = new BufferedOutputStream(new FileOutputStream(outFile));
             int index = 0;
-            byte[] buffer = new byte[1024 * 1024];
+            byte[] buffer = new byte[ONE_MB];
             while ((index = bIn.read(buffer)) != -1) {
                 bOut.write(buffer, 0, index);
             }
@@ -155,7 +162,6 @@ public final class GlideUtils {
             // 关闭文件流
             bIn.close();
             bOut.close();
-
         }
         // 变更文件修改日期
         if (preserveFileDate) {
@@ -163,4 +169,5 @@ public final class GlideUtils {
         }
         return result;
     }
+
 }
